@@ -39,8 +39,8 @@ export default class CursoDAO {
                 curso.vagas,
                 curso.preco,
                 curso.imagem,
-                curso.id
-            ]    
+                curso.id,
+            ];
             
             await conexao.execute(sql, parametros);
             await conexao.release();
