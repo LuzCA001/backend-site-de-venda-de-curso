@@ -10,7 +10,7 @@ export default class Curso  {
     #preco;
     #imagem;
 
-    constructor (id = 0, nome="", descrição="", professor="", carga_horaria=0, nivel="", vagas=0, preco=0, imagem="") {
+    constructor (id ="", nome="", descrição="", professor="", carga_horaria="", nivel="", vagas="", preco="", imagem="") {
         this.#id = id;
         this.#nome = nome;
         this.#descrição = descrição;
