@@ -3,7 +3,7 @@ import mysql from 'mysql2/promise';
 export default async function conectar() {
     
     if (global.poolConexoes) {
-        return global.poolConexoes;
+        return await global.poolConexoes.getConnection();
     } else {
         const poolConexoes = mysql.createPool({
             host: 'localhost',
@@ -18,7 +18,8 @@ export default async function conectar() {
             enableKeepAlive: true,
             keepAliveInitialDelay: 0,
         });
-       
-        return global.poolConexoes.getConnection();
+
+        global.poolConexoes = poolConexoes;
+        return await poolConexoes.getConnection();
     }
 }
