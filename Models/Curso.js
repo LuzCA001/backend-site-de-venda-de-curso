@@ -1,3 +1,4 @@
+import CursoDAO from "../DB/CursoDAO.js";
 export default class Curso  {
 
     #id;
@@ -121,4 +122,24 @@ export default class Curso  {
             imagem: this.#imagem
         }
     }
+
+    async gravar(){
+        const cursoDAO = new CursoDAO();
+        await cursoDAO.gravar(this);
+    }
+
+    async alterar(){
+        const cursoDAO = new CursoDAO();
+        await cursoDAO.alterar(this);        
+    }
+
+    async excluir(){
+        const cursoDAO = new CursoDAO();
+        await cursoDAO.excluir(this);
+    }    
+
+    async consultar(){
+        const cursoDAO = new CursoDAO();
+        return await cursoDAO.consultar(this);
+    }   
 }
