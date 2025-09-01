@@ -1,0 +1,24 @@
+{
+  "name": "backend-site-de-venda-de-curso",
+  "version": "1.0.0",
+  "description": "backend site de vendas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuzCA001/backend-site-de-venda-de-curso.git"
+  },
+  "keywords": [
+    "backend",
+    "javascript",
+    "mysql"
+  ],
+  "author": "Lucas Medeiros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuzCA001/backend-site-de-venda-de-curso/issues"
+  },
+  "homepage": "https://github.com/LuzCA001/backend-site-de-venda-de-curso#readme"
+}
