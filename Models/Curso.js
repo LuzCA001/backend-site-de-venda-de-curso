@@ -10,6 +10,18 @@ export default class Curso  {
     #preco;
     #imagem;
 
+    constructor (id = 0, nome="", descrição="", professor="", carga_horaria=0, nivel="", vagas=0, preco=0, imagem="") {
+        this.#id = id;
+        this.#nome = nome;
+        this.#descrição = descrição;
+        this.#professor = professor;
+        this.#carga_horaria = carga_horaria;
+        this.#nivel = nivel;
+        this.#vagas = vagas;
+        this.#preco = preco;
+        this.#imagem = imagem;
+    }
+
     get id() {
         return this.#id;
     }
@@ -82,4 +94,31 @@ export default class Curso  {
         return this.#imagem = imagem;
     }
     
+    toString() {
+        return `
+            id: ${this.#id}
+            nome: ${this.#nome}
+            descrição: ${this.#descrição}
+            professor: ${this.#professor}
+            carga_horaria: ${this.#carga_horaria}
+            nivel: ${this.#nivel}
+            vagas: ${this.#vagas}
+            preco: ${this.#preco}
+            imagem: ${this.#imagem}
+        `
+    }
+
+    toJSON() {
+        return {
+            id: this.#id,
+            nome: this.#nome,
+            descrição: this.#descrição,
+            professor: this.#professor,
+            carga_horaria: this.#carga_horaria,
+            nivel: this.#nivel,
+            vagas: this.#vagas,
+            preco: this.#preco,
+            imagem: this.#imagem
+        }
+    }
 }
