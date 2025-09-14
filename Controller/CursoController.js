@@ -1,19 +1,20 @@
 
-import Curso from "../Model/Curso.js"
+import Curso from "../Models/Curso.js"
 export default class CursoController{
 
     //post
     gravar(requisicao, resposta){
-        if (requisicao.method == 'POST' && requisicao.is("application/json")) {
+        if (requisicao.method === "POST" && requisicao.is("application/json")) {
             const dados = requisicao.body;
             if (dados.id && dados.nome && dados.descricao && dados.professor && dados.carga_horaria && dados.nivel && dados.vagas && dados.preco && dados.imagem) {
 
                 const curso = new Curso(dados.id, dados.nome, dados.descricao, dados.professor, dados.carga_horaria, dados.nivel, dados.vagas, dados.preco, dados.imagem);
-                curso.gravar().then(()=>{
-                    resposta.status(200).json({
-                        status: true,
-                        message: "Curso gravado com sucesso"
-                    })
+                curso.gravar()
+                    .then(() => {
+                        resposta.status(200).json({
+                            status: true,
+                            message: "Curso gravado com sucesso"
+                        })
                 })
                 .catch((erro)=>{
                     resposta.status(500).json({
@@ -25,6 +26,7 @@ export default class CursoController{
                 
             } else {
                 resposta.status(400).json({
+                status: false,
                 message: "Informe todos os campos corretamente"    
             });
             }
@@ -39,7 +41,7 @@ export default class CursoController{
     };
 
     //put
-    alterar(){
+    alterar(requisicao, resposta){
         if (requisicao.method == 'PUT' || requisicao.method == 'PATCH' && requisicao.is("application/json")) {
             const dados = requisicao.body;
             if (dados.id && dados.nome && dados.descricao && dados.professor && dados.carga_horaria && dados.nivel && dados.vagas && dados.preco && dados.imagem) {

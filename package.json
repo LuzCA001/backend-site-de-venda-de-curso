@@ -2,6 +2,7 @@
   "name": "backend-site-de-venda-de-curso",
   "version": "1.0.0",
   "description": "backend site de vendas",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +19,6 @@
   ],
   "author": "Lucas Medeiros",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/LuzCA001/backend-site-de-venda-de-curso/issues"
   },
