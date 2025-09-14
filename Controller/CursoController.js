@@ -1,7 +1,5 @@
-import { application } from "express"
-import Curso from "../Model/Curso.js"
-import { stat } from "fs";
 
+import Curso from "../Model/Curso.js"
 export default class CursoController{
 
     //post

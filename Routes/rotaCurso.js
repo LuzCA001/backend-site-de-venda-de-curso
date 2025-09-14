@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import CursoController from '../Controllers/cursoController.js';
+import CursoController from '../Controller/cursoController.js';
 
 const cursoRouter = Router();
 const cursoCtrl = new CursoController();

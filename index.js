@@ -1,5 +1,5 @@
 import express from 'express';
-import cursoRouter from './routes/rotaCurso.js';
+import cursoRouter from './Routes/rotaCurso.js';
 
 const hostname = '0.0.0.0';
 const porta = 4000;
