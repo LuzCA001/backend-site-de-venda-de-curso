@@ -85,6 +85,33 @@ export default class CursoDAO {
         return linhas;
 
     }
+
+    async consultarID() {
+        const conexao = await conectar();
+        const sql = "SELECT * FROM curso";
+        const [linhas] = await conexao.query(sql, [id]);
+        await conexao.release();
+
+        let listaCurso = [];
+        for (const linha of linhas) {
+            const curso = new Curso(
+                linha.id_curso,
+                linha.nome_curso,
+                linha.descricao_curso,
+                linha.professor_curso,
+                linha.carga_horaria_curso,
+                linha.nivel_curso,
+                linha.vagas_curso,
+                linha.preco_curso,
+                linha.imagem_curso
+            );
+
+            listaCurso.push(curso);
+        }
+
+        return linhas;
+
+    }
 }
 
 
