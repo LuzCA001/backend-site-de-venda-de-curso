@@ -1,5 +1,6 @@
 import { application } from "express"
 import Curso from "../Model/Curso.js"
+import { stat } from "fs";
 
 export default class CursoController{
 
@@ -119,11 +120,80 @@ export default class CursoController{
                 message: "Informe todos o ID do Curso"    
                 });
             }
+        } else {
+            resposta.status(400).json({
+            status: false,
+            message: "requisição inválida"
+            });
         }
     }
 
     //get
-    consultar(){};
+    consultar(requisicao, resposta){
+        if (requisicao.method === 'GET') {
+            const id = requisicao.params.id;
+            const curso = new Curso();
+
+            if (id) {
+                curso.consultarID(id)
+                .then((lista) => {
+                    if (lista.length > 0) {
+                        
+                    
+                        resposta.status(200).json({
+                        status: true,
+                        message: "Curso consultado com sucesso",
+                        cursos: lista
+                        });
+                        
+                    }
+                    
+                    else {
+                        resposta.status(404).json({
+                        status: false,
+                        message: "Curso não encontrado"
+                        })
+                    };
+                })
+                
+                .catch((erro) => {
+                    resposta.status(500).json({
+                    status: false,
+                    message: "Não foi possível consultar o curso: " + erro.message
+                    })
+                });
+               
+            }
+            else {
+                curso.consultar()
+                .then((lista) => {
+                    resposta.status(200).json({
+                    status: true,
+                    message: "Cursos consultados com sucesso",
+                    cursos: lista
+                    });
+                })
+                .catch((erro) => {
+                    resposta.status(500).json({
+                    status: false,
+                    message: "Não foi possível consultar os cursos: " + erro.message
+                    })
+                });
+            }
+               
+
+        }
+
+        else{
+
+            resposta.status(400).json({
+                status: false,
+                message: "requisição inválida"
+            });
+
+        }
+
+    };
 
 };
 

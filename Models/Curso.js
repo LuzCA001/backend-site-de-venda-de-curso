@@ -142,8 +142,8 @@ export default class Curso  {
         const cursoDAO = new CursoDAO();
         return await cursoDAO.consultar();
     }
-    async consultarID(){
+    async consultarID(id){
         const cursoDAO = new CursoDAO();
-        return await cursoDAO.consultar(this.#id);
+        return await cursoDAO.consultarID(id);
     }   
 }
