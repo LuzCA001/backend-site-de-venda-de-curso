@@ -82,13 +82,13 @@ export default class CursoDAO {
             listaCurso.push(curso);
         }
 
-        return linhas;
+        return listaCurso;
 
     }
 
-    async consultarID() {
+    async consultarID(id) {
         const conexao = await conectar();
-        const sql = "SELECT * FROM curso";
+        const sql = "SELECT * FROM curso WHERE id_curso = ?";
         const [linhas] = await conexao.query(sql, [id]);
         await conexao.release();
 
@@ -109,7 +109,7 @@ export default class CursoDAO {
             listaCurso.push(curso);
         }
 
-        return linhas;
+        return listaCurso;
 
     }
 }
