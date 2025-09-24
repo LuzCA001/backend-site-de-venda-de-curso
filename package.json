@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/LuzCA001/backend-site-de-venda-de-curso#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",

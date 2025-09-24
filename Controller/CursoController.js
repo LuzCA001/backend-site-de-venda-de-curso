@@ -3,78 +3,124 @@ import Curso from "../Models/Curso.js"
 export default class CursoController{
 
     //post
-    gravar(requisicao, resposta){
-        if (requisicao.method === "POST" && requisicao.is("application/json")) {
-            const dados = requisicao.body;
-            if (dados.id && dados.nome && dados.descricao && dados.professor && dados.carga_horaria && dados.nivel && dados.vagas && dados.preco && dados.imagem) {
+    gravar(requisicao, resposta) {
+    if (requisicao.method === "POST" && requisicao.is("application/json")) {
+        const dados = requisicao.body;
 
-                const curso = new Curso(dados.id, dados.nome, dados.descricao, dados.professor, dados.carga_horaria, dados.nivel, dados.vagas, dados.preco, dados.imagem);
-                curso.gravar()
-                    .then(() => {
+        
+        if (dados.id && dados.nome && dados.descricao && dados.professor && dados.carga_horaria && dados.nivel && dados.vagas && dados.preco && dados.imagem) {
+            
+            const curso = new Curso(dados.id, dados.nome, dados.descricao, dados.professor, dados.carga_horaria, dados.nivel, dados.vagas, dados.preco, dados.imagem);
+
+           
+            curso.consultarID(dados.id).then((cursosExistentes) => {
+                
+               
+                if (cursosExistentes.length > 0) {
+                    
+                    curso.alterar().then(() => {
                         resposta.status(200).json({
                             status: true,
-                            message: "Curso gravado com sucesso"
-                        })
-                })
-                .catch((erro)=>{
-                    resposta.status(500).json({
-                        status: false,
-                        message: "Não foi possível gravar o curso: " + erro.message
-                    })   
-
-                });
+                            message: "Curso alterado com sucesso!"
+                        });
+                    }).catch((erro) => {
+                        resposta.status(500).json({
+                            status: false,
+                            message: "Erro ao alterar o curso: " + erro.message
+                        });
+                    });
+                } 
                 
-            } else {
-                resposta.status(400).json({
-                status: false,
-                message: "Informe todos os campos corretamente: ID, Nome, Descrição, Professor, Carga Horária, Nível, Vagas, Preço, Imagem"    
+                else {
+                    
+                    curso.gravar().then(() => {
+                        resposta.status(200).json({
+                            status: true,
+                            message: "Curso gravado com sucesso!"
+                        });
+                    }).catch((erro) => {
+                        resposta.status(500).json({
+                            status: false,
+                            message: "Erro ao gravar o curso: " + erro.message
+                        });
+                    });
+                }
             });
-            }
-        }
-        else{
+        } else {
             resposta.status(400).json({
                 status: false,
-                message: "requisição inválida"
-                
-            })
+                message: "ERRO: Todos os campos, incluindo o ID, devem ser preenchidos."
+            });
         }
-    };
+    } else {
+        resposta.status(400).json({
+            status: false,
+            message: "Requisição inválida."
+        });
+    }
+}
 
-    //put
-    alterar(requisicao, resposta){
-        if (requisicao.method === 'PUT' || requisicao.method == 'PATCH' && requisicao.is("application/json")) {
-            const dados = requisicao.body;
-            if (dados.id && dados.nome && dados.descricao && dados.professor && dados.carga_horaria && dados.nivel && dados.vagas && dados.preco && dados.imagem) {
 
-                const curso = new Curso(dados.id, dados.nome, dados.descricao, dados.professor, dados.carga_horaria, dados.nivel, dados.vagas, dados.preco, dados.imagem);
-                curso.alterar().then(()=>{
+
+   //put
+    alterar(requisicao, resposta) {
+
+         console.log("\n=============================================");
+    console.log(">>> FUNÇÃO 'alterar' RECEBEU UMA REQUISIÇÃO <<<");
+    console.log("Método recebido:", requisicao.method);
+    console.log("Header 'Content-Type':", requisicao.headers['content-type']);
+    
+    const isJson = requisicao.is("application/json");
+    console.log("Resultado de requisicao.is('application/json'):", isJson);
+
+    const isPutOrPatch = requisicao.method === 'PUT' || requisicao.method === 'PATCH';
+    console.log("O método é PUT ou PATCH?", isPutOrPatch);
+    console.log("=============================================\n");
+
+
+    if ((requisicao.method === 'PUT' || requisicao.method === 'PATCH') && requisicao.is("application/json")) {
+        const dados = requisicao.body;
+        const id = requisicao.params.id;
+
+        
+        if (!id || isNaN(id)) {
+            return resposta.status(400).json({
+                status: false,
+                message: "ID do curso inválido ou não fornecido na URL."
+            });
+        }
+
+        if (dados.nome && dados.descricao && dados.professor && dados.carga_horaria && dados.nivel && dados.vagas && dados.preco && dados.imagem) {
+
+            const curso = new Curso(id, dados.nome, dados.descricao, dados.professor, dados.carga_horaria, dados.nivel, dados.vagas, dados.preco, dados.imagem);
+            
+            
+            curso.alterar() 
+                .then(() => {
                     resposta.status(200).json({
                         status: true,
                         message: "Curso alterado com sucesso"
-                    })
+                    });
                 })
-                .catch((erro)=>{
+                .catch((erro) => {
                     resposta.status(500).json({
                         status: false,
-                        message: "Não foi possível alterar o curso: " + erro.message
-                    })   
-
+                        message: "Não foi possível alterar o curso: " + erro.message
+                    });
                 });
-                
-            } else {
-                resposta.status(400).json({
-                message: "Informe todos os campos corretamente"    
-                });
-            }
-        }
-        else{
+        } else {
             resposta.status(400).json({
                 status: false,
-                message: "requisição inválida"
-                
+                message: "Informe todos os campos corretamente para a alteração."
             });
-        };
-    };
+        }
+    } else {
+        resposta.status(400).json({
+            status: false,
+            message: "Requisição inválida. Use o método PUT ou PATCH com Content-Type application/json."
+        });
+    }
+}
 
     //delete
     excluir(requisicao, resposta){

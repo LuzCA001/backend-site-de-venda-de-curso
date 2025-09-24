@@ -3,7 +3,7 @@ export default class Curso  {
 
     #id;
     #nome;
-    #descrição;
+    #descricao;
     #professor;
     #carga_horaria;
     #nivel;
@@ -11,10 +11,10 @@ export default class Curso  {
     #preco;
     #imagem;
 
-    constructor (id ="", nome="", descrição="", professor="", carga_horaria="", nivel="", vagas="", preco="", imagem="") {
+    constructor (id ="", nome="", descricao="", professor="", carga_horaria="", nivel="", vagas="", preco="", imagem="") {
         this.#id = id;
         this.#nome = nome;
-        this.#descrição = descrição;
+        this.#descricao = descricao;
         this.#professor = professor;
         this.#carga_horaria = carga_horaria;
         this.#nivel = nivel;
@@ -39,12 +39,12 @@ export default class Curso  {
         return this.#nome = nome;
     }
 
-    get descrição() {
-        return this.#descrição;
+    get descricao() {
+        return this.#descricao;
     }
 
-    set descrição(descrição) {
-        return this.descrição = descrição;
+    set descricao(descricao) {
+        return this.descricao = descricao;
     }
 
     get professor() {
@@ -99,7 +99,7 @@ export default class Curso  {
         return `
             id: ${this.#id}
             nome: ${this.#nome}
-            descrição: ${this.#descrição}
+            descrição: ${this.#descricao}
             professor: ${this.#professor}
             carga_horaria: ${this.#carga_horaria}
             nivel: ${this.#nivel}
@@ -113,7 +113,7 @@ export default class Curso  {
         return {
             id: this.#id,
             nome: this.#nome,
-            descrição: this.#descrição,
+            descricao: this.#descricao,
             professor: this.#professor,
             carga_horaria: this.#carga_horaria,
             nivel: this.#nivel,

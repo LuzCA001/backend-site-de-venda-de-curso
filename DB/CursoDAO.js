@@ -3,27 +3,27 @@ import conectar from "./conexao.js";
 export default class CursoDAO {
 
     async gravar(curso) {
-        if (curso instanceof Curso) {
-            const conexao = await conectar();
-            const sql = "INSERT INTO curso (id_curso, nome_curso, descricao_curso, professor_curso, carga_horaria_curso, nivel_curso, vagas_curso, preco_curso, imagem_curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            const parametros = [
-                curso.id,
-                curso.nome,
-                curso.descrição,
-                curso.professor,
-                curso.carga_horaria,
-                curso.nivel,
-                curso.vagas,
-                curso.preco,
-                curso.imagem
-            ];
-
-            await conexao.execute(sql, parametros);
-            await conexao.release();
-        }
+    if (curso instanceof Curso) {
+        const conexao = await conectar();
         
-
+        const sql = "INSERT INTO curso (id_curso, nome_curso, descricao_curso, professor_curso, carga_horaria_curso, nivel_curso, vagas_curso, preco_curso, imagem_curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        const parametros = [
+            curso.id,
+            curso.nome,
+            curso.descricao, 
+            curso.professor,
+            curso.carga_horaria,
+            curso.nivel,
+            curso.vagas,
+            curso.preco,
+            curso.imagem
+        ];
+        await conexao.execute(sql, parametros);
+        await conexao.release();
     }
+}
+
+
     
 
     async alterar(curso) {
@@ -32,7 +32,7 @@ export default class CursoDAO {
             const sql = "UPDATE curso SET nome_curso = ?, descricao_curso = ?, professor_curso = ?, carga_horaria_curso = ?, nivel_curso = ?, vagas_curso = ?, preco_curso = ?, imagem_curso = ? WHERE id_curso = ?";
             const parametros = [
                 curso.nome,
-                curso.descrição,
+                curso.descricao,
                 curso.professor,
                 curso.carga_horaria,
                 curso.nivel,
